@@ -13,6 +13,14 @@ pcall(require('telescope').load_extension, 'ui-select')
 -- Leader Key
 vim.g.mapleader = " " -- Set space as leader key
 
+
+-- COMMENT BINDS (NORMAL MODE):
+---Line-comment keymap
+-- line = 'gc',
+---Block-comment keymap
+-- block = 'gb',
+
+
 -- Harpoon Keybindings
 keymap("n", "<Leader>ha", harpoon_mark.add_file, opts)        -- Add current file to Harpoon
 keymap("n", "<Leader>hh", harpoon_ui.toggle_quick_menu, opts) -- Open Harpoon UI
