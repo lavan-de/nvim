@@ -13,8 +13,8 @@ vim.cmd("set shiftwidth=4")
 vim.cmd("syntax on")
 
 -- Enable hybrid line numbers (absolute when in insert mode, relative otherwise)
-vim.opt.nu = true               -- Show absolute line number for the current line
-vim.opt.relativenumber = true   -- Show relative line numbers for other lines
+vim.opt.nu = true             -- Show absolute line number for the current line
+vim.opt.relativenumber = true -- Show relative line numbers for other lines
 
 -- Disable error bells
 vim.opt.errorbells = false
@@ -25,14 +25,13 @@ vim.opt.smartindent = true
 -- Disable line wrapping
 vim.opt.wrap = false
 
-vim.wo.number = true 
-vim.o.clipboard = 'unnamedplus' 
+vim.wo.number = true
+vim.o.clipboard = 'unnamedplus'
 vim.o.wrap = false
-vim.o.linebreak = true 
+vim.o.linebreak = true
 vim.o.mouse = 'a'
 vim.o.autoindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.splitbelow = true
 vim.o.splitbelow = true
-

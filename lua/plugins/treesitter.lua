@@ -4,18 +4,20 @@ return {
     config = function()
         require("nvim-treesitter.configs").setup({
             ensure_installed = {
+                "c",
+                "cpp",
+                "dart",
                 "lua",
+                "markdown",
+                "markdown_inline",
+                "javascript",
+                "typescript",
                 "json",
                 "html",
                 "css",
-                "scss",
                 "yaml",
                 "bash",
                 "python",
-                "markdown",
-                "markdown_inline",
-                "c",
-                "cpp",
             },
             auto_install = true,
             highlight = {

@@ -13,26 +13,16 @@ pcall(require('telescope').load_extension, 'ui-select')
 -- Leader Key
 vim.g.mapleader = " " -- Set space as leader key
 
-
--- COMMENT BINDS (NORMAL MODE):
----Line-comment keymap
--- line = 'gc',
----Block-comment keymap
--- block = 'gb',
-
+-- Obsidian Keybindings
+keymap("n", "<leader>oo", ":cd /home/lavan-de/Documents/BrainVault", opts)
+keymap("n", "<leader>os", ":Telescope find_files search_dirs={'/home/lavan-de/Documents/BrainVault'}<CR>", opts)
+keymap("n", "<leader>oz", ":Telescope live_grep search_dirs={'/home/lavan-de/Documents/BrainVault'}<CR>", opts)
 
 -- Harpoon Keybindings
-keymap("n", "<Leader>ha", harpoon_mark.add_file, opts)        -- Add current file to Harpoon
-keymap("n", "<Leader>hh", harpoon_ui.toggle_quick_menu, opts) -- Open Harpoon UI
+keymap("n", "<Leader>ha", harpoon_mark.add_file, opts)                -- Add current file to Harpoon
+keymap("n", "<Leader>hh", harpoon_ui.toggle_quick_menu, opts)         -- Open Harpoon UI
 keymap("n", "<Leader>hn", function() harpoon_ui.nav_next() end, opts) -- Go to next file
 keymap("n", "<Leader>hp", function() harpoon_ui.nav_prev() end, opts) -- Go to previous file
-
--- Window Controls
-keymap("n", "<Leader>tt", ":tabnew<CR>", { noremap = true, silent = true })  -- New tab
-keymap("n", "<Leader>tc", ":tabclose<CR>", { noremap = true, silent = true })  -- Close tab
-keymap("n", "<Leader>to", ":tabonly<CR>", { noremap = true, silent = true })  -- Close other tabs
-keymap("n", "<Leader>tp", ":tabprev<CR>", { noremap = true, silent = true })  -- Previous tab
-keymap("n", "<Leader>tn", ":tabnext<CR>", { noremap = true, silent = true })  -- Next tab
 
 -- Window Splits
 keymap("n", "<Leader>sv", ":vsplit<CR>", opts) -- Vertical split
@@ -40,15 +30,16 @@ keymap("n", "<Leader>sh", ":split<CR>", opts)  -- Horizontal split
 keymap("n", "<Leader>se", "<C-w>=", opts)      -- Equalize split sizes
 keymap("n", "<Leader>sc", "<C-w>c", opts)      -- Close current split
 
-keymap("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true }) -- Move left
-keymap("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true }) -- Move right
-keymap("n", "<C-k>", ":wincmd k<CR>", { noremap = true, silent = true }) -- Move up
-keymap("n", "<C-j>", ":wincmd j<CR>", { noremap = true, silent = true }) -- Move down
+keymap("n", "<C-h>", ":wincmd h<CR>", opts)    -- Move left
+keymap("n", "<C-l>", ":wincmd l<CR>", opts)    -- Move right
+keymap("n", "<C-k>", ":wincmd k<CR>", opts)    -- Move up
+keymap("n", "<C-j>", ":wincmd j<CR>", opts)    -- Move down
 
 -- Buffer Navigation
 keymap("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", opts)
 keymap("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
-keymap("n", "<Leader>bd", ":bdelete<CR>", opts)  -- Delete buffer
+keymap("n", "<Leader>bd", ":bdelete<CR>", opts) -- Delete buffer
+keymap("n", "<Leader>tt", ":tabnew<CR>", opts)  -- New tab
 
 -- Neotree Navigation
 keymap("n", "<C-n>", ":Neotree filesystem reveal left<CR>", opts)
@@ -87,11 +78,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Diagnostic Keymaps (for errors, warnings, etc.)
-keymap("n", "[d", vim.diagnostic.goto_prev, opts)   -- Go to previous diagnostic
-keymap("n", "]d", vim.diagnostic.goto_next, opts)   -- Go to next diagnostic
-keymap("n", "<Leader>e", vim.diagnostic.open_float, opts)  -- Open diagnostics
+keymap("n", "[d", vim.diagnostic.goto_prev, opts)         -- Go to previous diagnostic
+keymap("n", "]d", vim.diagnostic.goto_next, opts)         -- Go to next diagnostic
+keymap("n", "<Leader>e", vim.diagnostic.open_float, opts) -- Open diagnostics
 keymap("n", "<Leader>dl", vim.diagnostic.setqflist, opts) -- New: List diagnostics in quickfix
-keymap({ "n", "i" }, "<C-b>", function() -- New: Toggle inlay hints
+keymap({ "n", "i" }, "<C-b>", function()                  -- New: Toggle inlay hints
     vim.lsp.inlay_hint(0, nil)
 end, opts)
 
@@ -132,11 +123,11 @@ keymap('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 -- Git-related Telescope Keymaps
-keymap('n', '<leader>gp', builtin.git_files, { desc = 'Search [G]it [F]iles' })
-keymap('n', '<leader>gc', builtin.git_commits, { desc = 'Search [G]it [C]ommits' })
-keymap('n', '<leader>gcf', builtin.git_bcommits, { desc = 'Search [G]it [C]ommits for current [F]ile' })
-keymap('n', '<leader>gb', builtin.git_branches, { desc = 'Search [G]it [B]ranches' })
-keymap('n', '<leader>gs', builtin.git_status, { desc = 'Search [G]it [S]tatus (diff view)' })
+-- keymap('n', '<leader>gp', builtin.git_files, { desc = 'Search [G]it [F]iles' })
+-- keymap('n', '<leader>gc', builtin.git_commits, { desc = 'Search [G]it [C]ommits' })
+-- keymap('n', '<leader>gcf', builtin.git_bcommits, { desc = 'Search [G]it [C]ommits for current [F]ile' })
+-- keymap('n', '<leader>gb', builtin.git_branches, { desc = 'Search [G]it [B]ranches' })
+-- keymap('n', '<leader>gs', builtin.git_status, { desc = 'Search [G]it [S]tatus (diff view)' })
 
 -- LSP-related Telescope Keymaps
 keymap('n', '<leader>sds', function()
@@ -146,4 +137,3 @@ keymap('n', '<leader>sds', function()
 end, { desc = '[S]earch LSP document [S]ymbols' })
 
 return {}
-

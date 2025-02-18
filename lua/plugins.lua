@@ -1,9 +1,17 @@
 return {
+    -- Markdown plugin setup
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- Adjust based on your preference
+        opts = {},
+        ft = 'markdown',
+    },
+
     -- Vim Illuminate plugin setup
     {
         "RRethy/vim-illuminate",
         config = function()
-            require("illuminate")  -- Configure the illuminate plugin
+            require("illuminate") -- Configure the illuminate plugin
         end,
     },
 
@@ -16,7 +24,7 @@ return {
         end,
     },
 
-    -- clangd_extensions plugin setup 
+    -- clangd_extensions plugin setup
     {
         "p00f/clangd_extensions.nvim",
         -- Remove the setup call here because it's already being handled in the mason-lspconfig handler
@@ -25,25 +33,25 @@ return {
         end,
     },
 
-    -- lua/plugins/rainbow-delimiters.lua
+    -- Mini Surround plugin setup
     {
-        "HiPhish/rainbow-delimiters.nvim",
+        "echasnovski/mini.surround",
+        version = '*', -- Use latest version from the main branch
         config = function()
-            -- Configure the plugin using vim.g
-            vim.g.rainbow_delimiters = {
-                highlight = {
-                    enable = true,
-                    colors = {
-                        "#ff6347",  -- Red for first level
-                        "#4682b4",  -- Blue for second level
-                        "#32cd32",  -- Green for third level
-                    },
-                },
-            }
+            require("mini.surround").setup()
         end,
     },
 
-    -- In nvim/lua/plugins.lua
+    -- Mini AI plugin setup
+    {
+        'echasnovski/mini.ai',
+        version = '*', -- Use latest version from the main branch
+        config = function()
+            require("mini.ai").setup()
+        end,
+    },
+
+    -- Other plugins
     {
         'windwp/nvim-autopairs',
         config = function()
@@ -51,17 +59,17 @@ return {
             local npairs = require('nvim-autopairs')
 
             npairs.setup({
-                check_ts = true,  -- Enable tree-sitter integration (recommended)
+                check_ts = true,                                           -- Enable tree-sitter integration (recommended)
                 ts_config = {
-                    lua = {'string', 'source'},  -- Adjust for specific languages
+                    lua = { 'string', 'source' },                          -- Adjust for specific languages
                 },
-                disable_filetype = { "TelescopePrompt", "spectre_panel" },  -- Disable in certain filetypes
+                disable_filetype = { "TelescopePrompt", "spectre_panel" }, -- Disable in certain filetypes
                 fast_wrap = {
-                    map = "<M-e>",  -- Keymap for quick wrapping
-                    chars = { "{", "[", "(", '"', "'" },  -- Characters to wrap
-                    pattern = string.gsub([[ [%'%"%)%>%]%)%} ]],"%s+", ""),
-                    offset = 0,  -- Offset from the cursor position
-                    end_key = "$",  -- End key for wrapping
+                    map = "<M-e>",                                         -- Keymap for quick wrapping
+                    chars = { "{", "[", "(", '"', "'" },                   -- Characters to wrap
+                    pattern = string.gsub([[ [%'%"%)%>%]%)%} ]], "%s+", ""),
+                    offset = 0,                                            -- Offset from the cursor position
+                    end_key = "$",                                         -- End key for wrapping
                 }
             })
         end
@@ -73,14 +81,14 @@ return {
         config = function()
             require('lualine').setup({
                 options = {
-                    theme = 'everforest';
-                    icons_enabled = true;
+                    theme = 'everforest',
+                    icons_enabled = true,
                 }
             })
         end
     },
 
-    -- Comment plugin setup 
+    -- Comment plugin setup
     {
         "numToStr/Comment.nvim",
         config = function()
@@ -126,7 +134,7 @@ return {
         end,
     },
 
-    -- Gitlinker  
+    -- Gitlinker
     {
         "ruifm/gitlinker.nvim",
         config = function()
@@ -138,4 +146,3 @@ return {
         },
     },
 }
-

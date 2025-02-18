@@ -9,12 +9,6 @@ return {
             cpp = {
                 require("formatter.filetypes.cpp").clangformat,
             },
-            css = {
-                require("formatter.filetypes.css").prettier,
-            },
-            graphql = {
-                require("formatter.filetypes.graphql").prettier,
-            },
             ["*"] = {
                 -- "formatter.filetypes.any" defines default configurations for any
                 -- filetype

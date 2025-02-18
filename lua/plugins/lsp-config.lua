@@ -19,8 +19,8 @@ return {
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "clangd",   -- C/C++ LSP
-                    "lua_ls",   -- Lua LSP
+                    "clangd", -- C/C++ LSP
+                    "lua_ls", -- Lua LSP
                 },
             })
 
@@ -30,7 +30,7 @@ return {
                 virtual_text = true,
                 signs = false,
             })
- 
+
             -- C/C++ LSP
             lsp_config.clangd.setup({
                 capabilities = capabilities,
@@ -55,8 +55,6 @@ return {
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             { "j-hui/fidget.nvim", tag = "legacy" },
-            "RobertBrunhage/dart-tools.nvim", -- Dart hot reload support
         },
     },
 }
-
