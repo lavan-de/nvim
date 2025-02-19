@@ -15,15 +15,6 @@ return {
         end,
     },
 
-    -- Harpoon plugin setup
-    {
-        "ThePrimeagen/harpoon",
-        event = "VeryLazy",
-        config = function()
-            require("harpoon").setup()
-        end,
-    },
-
     -- clangd_extensions plugin setup
     {
         "p00f/clangd_extensions.nvim",
