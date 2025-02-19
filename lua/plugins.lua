@@ -7,6 +7,16 @@ return {
         ft = 'markdown',
     },
 
+    -- Which-key plugin setup
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+        end,
+        opts = {}
+    },
+
     -- Vim Illuminate plugin setup
     {
         "RRethy/vim-illuminate",
