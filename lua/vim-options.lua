@@ -25,6 +25,8 @@ vim.opt.smartindent = true
 -- Disable line wrapping
 vim.opt.wrap = false
 
+vim.opt.pumheight = 10 -- Limit the completion menu to 10 items
+
 vim.wo.number = true
 vim.o.clipboard = 'unnamedplus'
 vim.o.wrap = false
