@@ -13,14 +13,14 @@ return {
                 disable_italic_comments = false,
 
                 colours_override = function(palette)
-                    palette.red    = "#F56245"
+                    palette.red    = "#FF7575"
                     palette.green  = "#C8F902"
-                    palette.blue   = "#0EE3B1"
-                    palette.yellow = "#DFA000"
-                    palette.orange = "#DAA520"
-                    palette.purple = "#5DB8FC"
+                    palette.blue   = "#5DB8FC"
+                    palette.yellow = "#F2BA02"
+                    palette.orange = "#FFD700"
+                    palette.purple = "#0EE3B1"
                     palette.cyan   = "#68F3EC"
-                    palette.white  = "#E0E0E0"
+                    palette.fg     = "#E6E2DC"
                 end,
             })
 
