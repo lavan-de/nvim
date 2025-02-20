@@ -28,7 +28,7 @@ vim.opt.wrap = false
 
 vim.opt.pumheight = 10 -- Limit the completion menu to 10 items
 
-vim.wo.number = true
+vim.o.number = true
 vim.o.clipboard = 'unnamedplus'
 vim.o.wrap = false
 vim.o.linebreak = true
@@ -42,6 +42,8 @@ vim.o.conceallevel = 0 -- so that `` is visible in markdown files
 vim.o.swapfile = false -- creates a swapfile
 vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
 vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
-vim.o.undofile = true -- Save undo history
 vim.o.hlsearch = false -- Set highlight on search
+
+-- Scroll offset to keep cursor centered
+vim.o.scrolloff = 10
 

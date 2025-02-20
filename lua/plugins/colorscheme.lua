@@ -17,8 +17,8 @@ return {
                     palette.green  = "#C8F902"
                     palette.blue   = "#0EE3B1"
                     palette.yellow = "#DFA000"
-                    palette.orange = "#FF924F"
-                    palette.purple = "#FC92C6"
+                    palette.orange = "#DAA520"
+                    palette.purple = "#5DB8FC"
                     palette.cyan   = "#68F3EC"
                     palette.white  = "#E0E0E0"
                 end,
@@ -39,6 +39,7 @@ return {
             ]]
         end,
     },
+
     {
         "Mofiqul/vscode.nvim",
         lazy = false,    -- Load the colorscheme immediately

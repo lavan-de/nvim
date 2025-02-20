@@ -37,6 +37,7 @@ return {
                 },
                 { name = "path" },    -- File path completions
                 { name = "luasnip" }, -- Snippet completions
+                { name = "copilot" }, -- Copilot completions
             }),
             mapping = cmp_mappings,
             formatting = {
@@ -46,6 +47,7 @@ return {
                         nvim_lsp = "[LSP]",
                         luasnip = "[Snippet]",
                         path = "[Path]",
+                        copilot = "[Copilot]",
                     })[entry.source.name]
                     return vim_item
                 end,
@@ -107,6 +109,25 @@ return {
                 "saadparwaiz1/cmp_luasnip",
                 "rafamadriz/friendly-snippets", -- Snippet collection
             },
+        },
+
+        -- GitHub Copilot integration
+        {
+            "zbirenbaum/copilot.lua",
+            event = "InsertEnter",
+            config = function()
+                require("copilot").setup({
+                    suggestion = { enabled = false },
+                    panel = { enabled = false },
+                })
+            end,
+        },
+        {
+            "zbirenbaum/copilot-cmp",
+            after = { "copilot.lua" },
+            config = function()
+                require("copilot_cmp").setup()
+            end,
         },
     },
 }

@@ -4,6 +4,11 @@
 - **Leader Key**: `<Space>` is set as the leader key.
 
 ---
+## Comment Keybindings (Normal and Visual Mode)
+- `gcc`: Toggle comment for the current line.
+- `gc`: Toggle comment for the current selection.
+
+---
 
 ## Obsidian Keybindings (Normal Mode)
 - `<Leader>oo`: Change directory to `/home/lavan-de/Documents/BrainVault`.

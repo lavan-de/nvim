@@ -1,7 +1,5 @@
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
-local harpoon_ui = require("harpoon.ui")
-local harpoon_mark = require("harpoon.mark")
 local builtin = require("telescope.builtin")
 local dap = require 'dap'
 local dapui = require 'dapui'
@@ -17,12 +15,6 @@ vim.g.mapleader = " " -- Set space as leader key
 keymap("n", "<leader>oo", ":cd /home/lavan-de/Documents/BrainVault", opts)
 keymap("n", "<leader>os", ":Telescope find_files search_dirs={'/home/lavan-de/Documents/BrainVault'}<CR>", opts)
 keymap("n", "<leader>oz", ":Telescope live_grep search_dirs={'/home/lavan-de/Documents/BrainVault'}<CR>", opts)
-
--- Harpoon Keybindings
-keymap("n", "<Leader>ha", harpoon_mark.add_file, opts)                -- Add current file to Harpoon
-keymap("n", "<Leader>hh", harpoon_ui.toggle_quick_menu, opts)         -- Open Harpoon UI
-keymap("n", "<Leader>hn", function() harpoon_ui.nav_next() end, opts) -- Go to next file
-keymap("n", "<Leader>hp", function() harpoon_ui.nav_prev() end, opts) -- Go to previous file
 
 -- Window Splits
 keymap("n", "<Leader>sv", ":vsplit<CR>", opts) -- Vertical split
