@@ -1,5 +1,30 @@
 return {
     "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+        -- Autocompletion sources
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp",
+
+        -- Snippets engine
+        {
+            "L3MON4D3/LuaSnip",
+            dependencies = {
+                "saadparwaiz1/cmp_luasnip",
+                "rafamadriz/friendly-snippets", -- Snippet collection
+            },
+        },
+
+        {
+            "zbirenbaum/copilot-cmp",
+            after = { "github/copilot.vim" },
+            config = function()
+                require("copilot_cmp").setup()
+            end,
+        },
+    },
+
     config = function()
         -- COMPLETION
         local cmp = require("cmp")
@@ -13,7 +38,7 @@ return {
         cmp_mappings["<Tab>"] = vim.NIL
         cmp_mappings["<S-Tab>"] = vim.NIL
 
-        ---@diagnostic disable-next-line: missing-fields
+        -- @diagnostic disable-next-line: missing-fields
         cmp.setup({
             snippet = {
                 expand = function(args)
@@ -21,6 +46,7 @@ return {
                 end,
             },
             sources = cmp.config.sources({
+                { name = "copilot" },  -- Copilot completions
                 {
                     name = "nvim_lsp",
                     -- Filter LSP completions to only include keywords, functions, and constants
@@ -35,17 +61,17 @@ return {
                         return allowed_kinds[kind]
                     end,
                 },
-                { name = "path" },    -- File path completions
-                { name = "luasnip" }, -- Snippet completions
-                { name = "copilot" }, -- Copilot completions
+                { name = "buffer" },   -- Buffer completions
+                { name = "nvim_lua" }, -- Neovim Lua completions
+                { name = "path" },     -- File path completions
+                { name = "luasnip" },  -- Snippet completions
             }),
             mapping = cmp_mappings,
             formatting = {
                 format = function(entry, vim_item)
                     -- Add icons or labels to completion items
                     vim_item.menu = ({
-                        nvim_lsp = "[LSP]",
-                        luasnip = "[Snippet]",
+                        buffer = "[Buffer]",
                         path = "[Path]",
                         copilot = "[Copilot]",
                     })[entry.source.name]
@@ -59,8 +85,8 @@ return {
                     function(entry1, entry2)
                         local kind_priority = {
                             Keyword = 1,
-                            Snippet = 2,
-                            Function = 3,
+                            Function = 2,
+                            Snippet = 3,
                             Constant = 4,
                         }
 
@@ -79,55 +105,24 @@ return {
                         -- If priorities are equal, fall back to default comparators
                         return nil
                     end,
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
                     cmp.config.compare.score,
                     cmp.config.compare.recently_used,
                     cmp.config.compare.locality,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.length,
+                    cmp.config.compare.order,
                 },
             },
             completion = {
                 completeopt = "menu,menuone,noinsert,noselect", -- Don't auto-insert the first item
-                keyword_length = 2,                             -- Start showing completions after typing 2 characters
-                max_items = 10,                                 -- Show a maximum of 10 items in the completion menu
+                keyword_length = 3,                             -- Start showing completions after typing 2 characters
+                max_items = 15,                                 -- Show a maximum of 10 items in the completion menu
             },
         })
 
         -- Load snippets from plugins (e.g., friendly-snippets)
         require("luasnip.loaders.from_vscode").lazy_load()
     end,
-    dependencies = {
-        -- Autocompletion sources
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-nvim-lua",
-
-        -- Snippets engine
-        {
-            "L3MON4D3/LuaSnip",
-            dependencies = {
-                "saadparwaiz1/cmp_luasnip",
-                "rafamadriz/friendly-snippets", -- Snippet collection
-            },
-        },
-
-        -- GitHub Copilot integration
-        {
-            "zbirenbaum/copilot.lua",
-            event = "InsertEnter",
-            config = function()
-                require("copilot").setup({
-                    suggestion = { enabled = false },
-                    panel = { enabled = false },
-                })
-            end,
-        },
-        {
-            "zbirenbaum/copilot-cmp",
-            after = { "copilot.lua" },
-            config = function()
-                require("copilot_cmp").setup()
-            end,
-        },
-    },
 }

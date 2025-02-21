@@ -1,24 +1,27 @@
----@diagnostic disable: missing-fields
 -- Treesitter does quite a bit, read up on it!
 return {
     "nvim-treesitter/nvim-treesitter",
     config = function()
         require("nvim-treesitter.configs").setup({
             ensure_installed = {
-                "c",
-                "cpp",
                 "dart",
                 "lua",
                 "markdown",
                 "markdown_inline",
                 "javascript",
                 "typescript",
+                "tsx",
                 "json",
                 "html",
                 "css",
+                "scss",
                 "yaml",
                 "bash",
                 "python",
+                "markdown",
+                "markdown_inline",
+                "c",
+                "cpp",
             },
             auto_install = true,
             highlight = {

@@ -39,8 +39,8 @@ return {
                 always_show_bufferline = false,
                 show_tab_indicators = false,
                 indicator = {
-                    -- icon = '▎', -- this should be omitted if indicator style is not 'icon'
-                    style = 'underline', -- Options: 'icon', 'underline', 'none'
+                    icon = '', -- this should be omitted if indicator style is not 'icon'
+                    style = 'icon', -- Options: 'icon', 'underline', 'none'
                 },
                 icon_pinned = '󰐃',
                 minimum_padding = 1,

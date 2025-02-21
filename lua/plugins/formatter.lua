@@ -6,8 +6,17 @@ return {
             lua = {
                 require("formatter.filetypes.lua").stylua,
             },
+            c = {
+                require("formatter.filetypes.c").clangformat,
+            },
             cpp = {
                 require("formatter.filetypes.cpp").clangformat,
+            },
+            markdown = {
+                require("formatter.filetypes.markdown").prettier,
+            },
+            sh = {
+                require("formatter.filetypes.sh").shfmt,
             },
             ["*"] = {
                 -- "formatter.filetypes.any" defines default configurations for any
@@ -28,7 +37,7 @@ return {
             else
                 vim.lsp.buf.format({
                     filter = function(client)
-                        local clients = vim.lsp.get_active_clients()
+                        local clients = vim.lsp.get_aclients()
                         local formattingDartWithDcmls = false
 
                         -- Check if dcmls is attached
