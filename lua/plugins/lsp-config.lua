@@ -56,6 +56,7 @@ return {
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
+			"RobertBrunhage/dart-tools.nvim", -- Dart hot reload support
 		},
 		config = function()
 			local lsp_config = require("lspconfig")
@@ -71,6 +72,8 @@ return {
 			})
 			-- Tooltip for the LSP in bottom right
 			require("fidget").setup({})
+			-- Hot reload for Dart
+			require("dart-tools")
 			local capabilities = cmp_nvim_lsp.default_capabilities()
 
 			vim.diagnostic.config({
@@ -84,7 +87,7 @@ return {
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 			end
 
-			-- C/C++ LSP
+            -- C/C++ LSP
 			lsp_config.clangd.setup({
 				capabilities = capabilities,
 				cmd = {

@@ -1,10 +1,31 @@
 
 (directory ~/wiki, is needed for the keybindings to work)
 
+
+<leader>a	AI	AI-related actions (e.g., Copilot, Codeium)
+<leader>b	Buffer	Buffer management (e.g., closing, switching, pinning)
+<leader>c	Code	Code-related actions (e.g., LSP, refactoring, formatting)
+<leader>d   Debug   Debugging (e.g., DAP, breakpoints)
+<leader>f	File / Find	File navigation and searching (e.g., Telescope, file tree)
+<leader>g	Git	Git commands (e.g., Gitsigns, Fugitive)
+<leader>h	Harpoon	Harpoon-related keymaps
+<leader>m	Markdown / Notes	Markdown preview, note-taking (e.g., Glow, Obsidian)
+<leader>q	Quit / Session	Quitting, saving, session management
+<leader>r   Window Window management (e.g., splits, resizing, closing)
+<leader>s	Search	Searching within files (e.g., Grep, Telescope)
+<leader>t	Toggle	UI and tool toggles (e.g., Trouble, Terminal, Blame)
+<leader>u	UI	UI customization, layout adjustments
+<leader>w	Wiki-Notes    Wiki-related actions (e.g., navigation, linking, exporting)
+<leader>x	Diagnostics	Error and quickfix handling (e.g., Trouble)
+[ and ]	Navigation	Previous/Next actions (e.g., buffer cycling, hunks, errors)
+g	Goto	Go to definitions, implementations, references
+z	Folds	Folding-related keymaps
+---
+
 # NOTEBOOK (wiki)
 
  MODE  LHS                 RHS ~
-  ====  ===                 ===
+---
   `n`     <leader>ww          |<plug>(wiki-index)|                 [GLOBAL]
   `n`     <leader>w<leader>w  |<plug>(wiki-journal)|               [GLOBAL]
   `n`     <leader>wn          |<plug>(wiki-open)|                  [GLOBAL]

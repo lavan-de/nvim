@@ -32,6 +32,16 @@ return {
             ["<C-y>"] = cmp.mapping.complete(),                 -- Open completion menu
             ["<C-e>"] = cmp.mapping.abort(),                    -- Close completion menu
             ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Confirm selection without auto-selecting
+
+            -- Select the [n]ext item
+            ["<C-n>"] = cmp.mapping.select_next_item(),
+            -- Select the [p]revious item
+            ["<C-p>"] = cmp.mapping.select_prev_item(),
+
+            -- Scroll the documentation window [b]ack / [f]orward
+            ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+            ["<C-f>"] = cmp.mapping.scroll_docs(4),
+
         })
 
         -- Disable completion with Tab (helps with Copilot setup)
@@ -46,21 +56,8 @@ return {
                 end,
             },
             sources = cmp.config.sources({
-                { name = "copilot" },  -- Copilot completions
-                {
-                    name = "nvim_lsp",
-                    -- Filter LSP completions to only include keywords, functions, and constants
-                    entry_filter = function(entry, ctx)
-                        local kind = require("cmp.types").lsp.CompletionItemKind[entry:get_kind()]
-                        -- Allow only these kinds
-                        local allowed_kinds = {
-                            Keyword = true,
-                            Function = true,
-                            Constant = true,
-                        }
-                        return allowed_kinds[kind]
-                    end,
-                },
+                { name = "copilot" }, -- Copilot completions
+                { name = "nvim_lsp"},
                 { name = "buffer" },   -- Buffer completions
                 { name = "nvim_lua" }, -- Neovim Lua completions
                 { name = "path" },     -- File path completions
@@ -112,7 +109,7 @@ return {
                     cmp.config.compare.locality,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.length,
-                    cmp.config.compare.order,
+                    cmp.config.compare.order
                 },
             },
             completion = {

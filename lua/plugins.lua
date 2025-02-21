@@ -1,15 +1,34 @@
 return {
-
-    -- Which-key plugin setup
+	-- Flutter-tools plugin setup
 	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-		end,
-		opts = {},
+		"nvim-flutter/flutter-tools.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim", -- optional for vim.ui.select
+		},
+		config = true,
 	},
-
+    -- Lightbulb for LSP code action (VS Code like)
+    {
+        "kosayoda/nvim-lightbulb",
+        event = "LspAttach",
+        opts = {
+            autocmd = { enabled = true },
+            -- Sign column.
+            sign = {
+                enabled = true,
+                text = "⚡",
+                hl = "LightBulbSign",
+            },
+        },
+    },
+    -- Code comment
+    {
+        "folke/ts-comments.nvim",
+        opts = {},
+        event = "VeryLazy",
+    },
 	-- Wiki.vim plugin setup
 	{
 		"lervag/wiki.vim",
@@ -19,7 +38,6 @@ return {
 			-- vim.g.vimtex_option_name = value  -- Example Vimscript config translated to Lua
 		end,
 	},
-
 	-- Markdown plugin setup
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
@@ -44,7 +62,6 @@ return {
 			require("mini.ai").setup()
 		end,
 	},
-
 	-- lua/plugins/rainbow-delimiters.lua
 	{
 		"HiPhish/rainbow-delimiters.nvim",
@@ -62,7 +79,6 @@ return {
 			}
 		end,
 	},
-
 	-- nvim-autopairs plugin setup
 	{
 		"windwp/nvim-autopairs",
@@ -86,7 +102,6 @@ return {
 			})
 		end,
 	},
-
 	-- Lualine plugin setup
 	{
 		"nvim-lualine/lualine.nvim",
@@ -99,7 +114,6 @@ return {
 			})
 		end,
 	},
-
 	-- Comment plugin setup
 	{
 		"numToStr/Comment.nvim",
@@ -107,13 +121,6 @@ return {
 			require("Comment").setup()
 		end,
 	},
-
-	-- Floaterm plugin setup
-	{
-		"voldikss/vim-floaterm",
-		config = function() end,
-	},
-
 	-- Unimpaired plugin setup
 	{
 		"tummetott/unimpaired.nvim",
@@ -136,23 +143,5 @@ return {
 				enable = false,
 			})
 		end,
-	},
-
-	-- Git
-	{
-		"tpope/vim-fugitive",
-		config = function() end,
-	},
-
-	-- Gitlinker
-	{
-		"ruifm/gitlinker.nvim",
-		config = function()
-			-- default keybind is <leader>gy
-			require("gitlinker").setup()
-		end,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
 	},
 }

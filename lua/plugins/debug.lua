@@ -30,7 +30,6 @@ return {
             -- online, please don't ask me how to install them :)
             ensure_installed = {
                 'codelldb',  -- Add this for C/C++
-                'dart-debug', -- Use the official Dart debug adapter
                 'bash-debug-adapter', -- Add this for Bash
             },
         }

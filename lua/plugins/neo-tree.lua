@@ -49,6 +49,7 @@ return {
                 ["c"] = "cpp",     -- Treat C files as C++
                 ["cpp"] = "cpp",   -- C++ files
                 ["lua"] = "lua",   -- Lua files
+                ["dart"] = "dart", -- Dart files
                 ["markdown"] = "markdown", -- Markdown files
             },
 
