@@ -20,7 +20,24 @@ local prompts = {
 }
 
 return {
-    -- Copilot
+    {
+        "folke/which-key.nvim",
+        optional = true,
+        opts = {
+            spec = {
+                { "<leader>a", group = "AI", mode = { "n", "v" } },
+            },
+        },
+    },
+
+    -- Copilot / Chat / Completion
+    {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+    },
+
     {
         "github/copilot.vim",
         event = "VeryLazy",
@@ -32,26 +49,15 @@ return {
                 ["grug-far"] = false,
                 ["grug-far-history"] = false,
             }
-       end,
+        end,
     },
-    {
-        "folke/which-key.nvim",
-        optional = true,
-        opts = {
-            spec = {
-                { "<leader>a", group = "ai", mode = { "n", "v" } },
-            },
-        },
-    },
-    {
-        "nvim-treesitter/nvim-treesitter",
-        opts = { ensure_installed = { "diff", "markdown" } },
-    },
+
     {
         dir = IS_DEV and "~/research/CopilotChat.nvim" or nil,
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "main",
         -- version = "v3.3.0",
+        lazy = false,
         dependencies = {
             { "nvim-lua/plenary.nvim" },
         },
@@ -200,15 +206,6 @@ return {
             { "<leader>a?", "<cmd>CopilotChatModels<cr>",        desc = "CopilotChat - Select Models" },
             -- Copilot Chat Agents
             { "<leader>aa", "<cmd>CopilotChatAgents<cr>",        desc = "CopilotChat - Select Agents" },
-        },
-    },
-    {
-        "folke/which-key.nvim",
-        optional = true,
-        opts = {
-            spec = {
-                { "<leader>gm", group = "Copilot Chat" },
-            },
         },
     },
     {

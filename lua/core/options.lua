@@ -1,0 +1,43 @@
+vim.g.wiki_root = "~/wiki"
+
+local opt = vim.opt
+
+-- integration works automatically. Requires Neovim >= 0.10.0
+opt.autoindent = true -- Copy indent from current line
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 0 -- Make `` visible in markdown
+opt.encoding = "UTF-8"
+opt.expandtab = true -- Use spaces instead of tabs
+opt.fileencoding = "UTF-8"
+opt.ignorecase = true -- Ignore case
+opt.laststatus = 2 -- global statusline
+opt.linebreak = true -- Wrap lines at convenient points
+opt.mouse = "a" -- Enable mouse mode
+opt.numberwidth = 4 -- Number column width
+opt.number = true -- Print line number
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.relativenumber = true -- Relative line numbers
+opt.updatetime = 250 -- Decrease update time
+opt.spelllang = "en_us"
+opt.syntax = "enable" -- Enable syntax highlighting
+opt.softtabstop = 4 -- Number of spaces tabs count for
+opt.scrolloff = 10 -- Lines of context
+opt.shiftwidth = 4 -- Size of an indent
+opt.showmode = false -- Dont show mode since we have a statusline
+opt.showtabline = 2 -- Always show tab line
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
+opt.swapfile = false -- No swap file
+opt.tabstop = 4 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.timeoutlen = 300 -- Lower than default (1000) to quickly trigger which-key
+opt.undofile = true
+opt.winminwidth = 5 -- Minimum window width
+opt.wrap = false -- Disable line wrap
+

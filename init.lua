@@ -1,17 +1,16 @@
--- Install lazy.nvim if not already installed
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+require 'core.options' -- Load general options
+require 'core.keymaps' -- Load keymappings
+
+-- Set up the Lazy plugin manager
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  if vim.v.shell_error ~= 0 then
+    error('Error cloning lazy.nvim:\n' .. out)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Plugin setup
-require("vim-options")
-require("lazy").setup("plugins")
+-- Set up plugins
+require('lazy').setup('plugins')

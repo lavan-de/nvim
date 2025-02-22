@@ -15,6 +15,9 @@ return {
             markdown = {
                 require("formatter.filetypes.markdown").prettier,
             },
+            dart = {
+                require("formatter.filetypes.dart").dartformat,
+            },
             sh = {
                 require("formatter.filetypes.sh").shfmt,
             },

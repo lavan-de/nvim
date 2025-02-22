@@ -1,34 +1,111 @@
 return {
-	-- Flutter-tools plugin setup
+	-- Which key
 	{
-		"nvim-flutter/flutter-tools.nvim",
-		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"stevearc/dressing.nvim", -- optional for vim.ui.select
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts_extend = { "spec" },
+		opts = {
+			defaults = {},
+			-- @type false | "classic" | "modern" | "helix"
+			preset = vim.g.which_key_preset or "helix", -- default is "classic"
+			-- Custom helix layout
+			win = vim.g.which_key_window or {
+				width = { min = 30, max = 60 },
+				height = { min = 4, max = 0.85 },
+			},
+			spec = {
+				{
+					mode = { "n", "v" },
+					{ "<leader>a", group = "AI" },
+					{ "<leader>b", group = "Buffers" },
+					{ "<leader>c", group = "Code" },
+					-- { "<leader>f", group = "file/find" },
+					{ "<leader>g", group = "Git" },
+					{ "<leader>gh", group = "Hunks" },
+					{ "<leader>s", group = "Telescope" },
+					{ "<leader>t", group = "Tabs" },
+					{ "<leader>e", group = "File Tree", icon = { icon = "󰙵 ", color = "cyan" } },
+					{ "<leader>w", group = "Wiki" },
+					{ "<leader>d", group = "Debugger", icon = { icon = "󱖫 ", color = "green" } },
+					{ "[", group = "prev" },
+					{ "]", group = "next" },
+					{ "g", group = "GoTo" },
+					{ "gs", group = "Surround" },
+				},
+			},
 		},
-		config = true,
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Keymaps (which-key)",
+			},
+		},
+		config = function(_, opts)
+			local wk = require("which-key")
+			wk.setup(opts)
+			if not vim.tbl_isempty(opts.defaults) then
+				wk.register(opts.defaults)
+			end
+		end,
 	},
-    -- Lightbulb for LSP code action (VS Code like)
-    {
-        "kosayoda/nvim-lightbulb",
-        event = "LspAttach",
-        opts = {
-            autocmd = { enabled = true },
-            -- Sign column.
-            sign = {
-                enabled = true,
-                text = "⚡",
-                hl = "LightBulbSign",
-            },
-        },
-    },
-    -- Code comment
-    {
-        "folke/ts-comments.nvim",
-        opts = {},
-        event = "VeryLazy",
-    },
+	-- lualine plugin setup
+	{
+		"nvim-lualine/lualine.nvim",
+		config = function()
+			require("lualine").setup({
+				options = {
+					theme = "everforest",
+					icons_enabled = true,
+				},
+			})
+		end,
+	},
+	-- rainbow-delimiters.lua
+	{
+		"HiPhish/rainbow-delimiters.nvim",
+		config = function()
+			-- Configure the plugin using vim.g
+			vim.g.rainbow_delimiters = {
+				highlight = {
+					enable = true,
+					colors = {
+						"#ff6347", -- Red for first level
+						"#4682b4", -- Blue for second level
+						"#32cd32", -- Green for third level
+					},
+				},
+			}
+		end,
+	},
+	-- Language support, mainly for indentation because it's more stable than treesitter in Dart
+	-- "dart-lang/dart-vim-plugin",
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		config = function()
+			require("treesitter-context").setup({
+				enable = false,
+			})
+		end,
+	},
+	-- Use gs for surround as `s` is used by flash
+	{
+		"echasnovski/mini.surround",
+		vscode = true,
+		opts = {
+			mappings = {
+				add = "gsa", -- Add surrounding in Normal and Visual modes
+				delete = "gsd", -- Delete surrounding
+				find = "gsf", -- Find surrounding (to the right)
+				find_left = "gsF", -- Find surrounding (to the left)
+				highlight = "gsh", -- Highlight surrounding
+				replace = "gsr", -- Replace surrounding
+				update_n_lines = "gsn", -- Update `n_lines`
+			},
+		},
+	},
 	-- Wiki.vim plugin setup
 	{
 		"lervag/wiki.vim",
@@ -62,86 +139,12 @@ return {
 			require("mini.ai").setup()
 		end,
 	},
-	-- lua/plugins/rainbow-delimiters.lua
-	{
-		"HiPhish/rainbow-delimiters.nvim",
-		config = function()
-			-- Configure the plugin using vim.g
-			vim.g.rainbow_delimiters = {
-				highlight = {
-					enable = true,
-					colors = {
-						"#ff6347", -- Red for first level
-						"#4682b4", -- Blue for second level
-						"#32cd32", -- Green for third level
-					},
-				},
-			}
-		end,
-	},
-	-- nvim-autopairs plugin setup
-	{
-		"windwp/nvim-autopairs",
-		config = function()
-			-- Configuration for nvim-autopairs
-			local npairs = require("nvim-autopairs")
 
-			npairs.setup({
-				check_ts = true, -- Enable tree-sitter integration (recommended)
-				ts_config = {
-					lua = { "string", "source" }, -- Adjust for specific languages
-				},
-				disable_filetype = { "TelescopePrompt", "spectre_panel" }, -- Disable in certain filetypes
-				fast_wrap = {
-					map = "<M-e>", -- Keymap for quick wrapping
-					chars = { "{", "[", "(", '"', "'" }, -- Characters to wrap
-					pattern = string.gsub([[ [%'%"%)%>%]%)%} ]], "%s+", ""),
-					offset = 0, -- Offset from the cursor position
-					end_key = "$", -- End key for wrapping
-				},
-			})
-		end,
-	},
-	-- Lualine plugin setup
-	{
-		"nvim-lualine/lualine.nvim",
-		config = function()
-			require("lualine").setup({
-				options = {
-					theme = "everforest",
-					icons_enabled = true,
-				},
-			})
-		end,
-	},
-	-- Comment plugin setup
-	{
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
-	},
 	-- Unimpaired plugin setup
 	{
 		"tummetott/unimpaired.nvim",
 		config = function()
 			require("unimpaired").setup()
-		end,
-	},
-
-	-- Neovim development
-	{
-		"folke/neodev.nvim",
-	},
-
-	-- Language support, mainly for indentation because it's more stable than treesitter in Dart
-	-- "dart-lang/dart-vim-plugin",
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		config = function()
-			require("treesitter-context").setup({
-				enable = false,
-			})
 		end,
 	},
 }
