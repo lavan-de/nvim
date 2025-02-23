@@ -16,12 +16,16 @@ return {
 			spec = {
 				{
 					mode = { "n", "v" },
+					{ "<leader>oi1", group = "Codex" },
+					{ "<leader>ot", group = "Templates" },
 					{ "<leader>a", group = "AI" },
 					{ "<leader>b", group = "Buffers" },
 					{ "<leader>c", group = "Code" },
-					-- { "<leader>f", group = "file/find" },
 					{ "<leader>g", group = "Git" },
 					{ "<leader>gh", group = "Hunks" },
+					{ "<leader>n", group = "Navigate"},
+					{ "<leader>o", group = "Obsidian"},
+					{ "<leader>oi", group = 'vaults'},
 					{ "<leader>s", group = "Telescope" },
 					{ "<leader>t", group = "Tabs" },
 					{ "<leader>e", group = "File Tree", icon = { icon = "󰙵 ", color = "cyan" } },
@@ -105,15 +109,6 @@ return {
 				update_n_lines = "gsn", -- Update `n_lines`
 			},
 		},
-	},
-	-- Wiki.vim plugin setup
-	{
-		"lervag/wiki.vim",
-		-- tag = "v0.10", -- uncomment to pin to a specific release
-		init = function()
-			-- wiki.vim configuration goes here, e.g.
-			-- vim.g.vimtex_option_name = value  -- Example Vimscript config translated to Lua
-		end,
 	},
 	-- Markdown plugin setup
 	{

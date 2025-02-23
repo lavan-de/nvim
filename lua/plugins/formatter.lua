@@ -15,9 +15,6 @@ return {
             markdown = {
                 require("formatter.filetypes.markdown").prettier,
             },
-            dart = {
-                require("formatter.filetypes.dart").dartformat,
-            },
             sh = {
                 require("formatter.filetypes.sh").shfmt,
             },
@@ -40,23 +37,7 @@ return {
             else
                 vim.lsp.buf.format({
                     filter = function(client)
-                        local clients = vim.lsp.get_clients()
-                        local formattingDartWithDcmls = false
-
-                        -- Check if dcmls is attached
-                        for _, c in ipairs(clients) do
-                            if c.name == "dcmls" then
-                                formattingDartWithDcmls = true
-                                break -- No need to continue checking clients if dcmls is found
-                            end
-                        end
-
-                        -- Return false for dart if dcmls is attached
-                        if formattingDartWithDcmls and client.name == "dartls" then
-                            return false
-                        end
-
-                        return true
+                        return true -- Simplified: Always allow formatting (no Dart checks)
                     end,
                 })
             end

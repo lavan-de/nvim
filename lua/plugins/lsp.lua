@@ -155,7 +155,6 @@ return {
 				end,
 			})
 
-
 			-- C/C++ LSP
 			lsp_config.clangd.setup({
 				capabilities = capabilities,

@@ -1,5 +1,3 @@
-vim.g.wiki_root = "~/wiki"
-
 local opt = vim.opt
 
 -- integration works automatically. Requires Neovim >= 0.10.0
