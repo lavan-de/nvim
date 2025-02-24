@@ -67,6 +67,7 @@ return {
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			{ "j-hui/fidget.nvim", tag = "legacy" },
+			"RobertBrunhage/dart-tools.nvim", -- Dart hot reload support
 		},
 		config = function()
 			local lsp_config = require("lspconfig")

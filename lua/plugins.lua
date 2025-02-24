@@ -18,14 +18,13 @@ return {
 					mode = { "n", "v" },
 					{ "<leader>oi1", group = "Codex" },
 					{ "<leader>ot", group = "Templates" },
+					{ "<leader>o", group = "Obsidian" },
 					{ "<leader>a", group = "AI" },
 					{ "<leader>b", group = "Buffers" },
 					{ "<leader>c", group = "Code" },
+					-- { "<leader>f", group = "file/find" },
 					{ "<leader>g", group = "Git" },
 					{ "<leader>gh", group = "Hunks" },
-					{ "<leader>n", group = "Navigate"},
-					{ "<leader>o", group = "Obsidian"},
-					{ "<leader>oi", group = 'vaults'},
 					{ "<leader>s", group = "Telescope" },
 					{ "<leader>t", group = "Tabs" },
 					{ "<leader>e", group = "File Tree", icon = { icon = "󰙵 ", color = "cyan" } },
@@ -76,12 +75,40 @@ return {
 				highlight = {
 					enable = true,
 					colors = {
-						"#ff6347", -- Red for first level
-						"#4682b4", -- Blue for second level
-						"#32cd32", -- Green for third level
+						parentheses = "#ff6347", -- Red for parentheses
+						brackets = "#4682b4", -- Blue for brackets
+						braces = "#32cd32", -- Green for braces
+						angles = "#ffd700", -- Yellow for angle brackets
 					},
 				},
 			}
+		end,
+	},
+	{
+		"echasnovski/mini.indentscope",
+		version = false,
+		event = "VeryLazy",
+		opts = {
+			symbol = "│",
+			options = { try_as_border = true },
+		},
+		init = function()
+			-- Disable mini.indentscope for some filetypes
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
+					"dashboard",
+					"fzf",
+					"help",
+					"lazy",
+					"mason",
+					"toggleterm",
+					"Trouble",
+					"trouble",
+				},
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
 		end,
 	},
 	-- Language support, mainly for indentation because it's more stable than treesitter in Dart

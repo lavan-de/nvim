@@ -1,108 +1,90 @@
-return
-{
-    -- {
-    --     "neanias/everforest-nvim",
-    --     lazy = false,
-    --     priority = 1000, -- Load before all other plugins
-    --     config = function()
-    --         local everforest = require("everforest")
-    --
-    --         everforest.setup({
-    --             background = "medium",            -- Options: 'hard', 'medium', 'soft'
-    --             transparent_background_level = 2, -- 0 = disabled, 1 = semi-transparent, 2 = fully transparent
-    --             italics = true,
-    --             disable_italic_comments = false,
-    --
-    --             -- Corrected colours_override usage
-    --             colours_override = function(palette)
-    --                 palette.red    = "#FF7575"
-    --                 palette.green  = "#C8F902"
-    --                 palette.blue   = "#5DB8FC"
-    --                 palette.yellow = "#F2BA02"
-    --                 palette.orange = "#FFD700"
-    --                 palette.purple = "#0EE3B1"
-    --                 palette.cyan   = "#68F3EC"
-    --                 palette.fg     = "#E6E2DC"
-    --             end,
-    --         })
-    --
-    --         -- Load Everforest colorscheme
-    --         vim.cmd("colorscheme everforest")
-    --
-    --         -- Ensure transparency is applied properly
-    --         vim.cmd [[
-    --             hi Normal guibg=NONE ctermbg=NONE
-    --             hi StatusLine guibg=NONE ctermbg=NONE
-    --             hi TabLine guibg=NONE ctermbg=NONE
-    --             hi Pmenu guibg=NONE ctermbg=NONE
-    --             hi VertSplit guibg=NONE ctermbg=NONE
-    --             hi LineNr guibg=NONE ctermbg=NONE
-    --             hi CursorLineNR guibg=NONE guifg=NONE ctermbg=NONE ctermfg=220
-    --             hi SignColumn guibg=NONE
-    --             hi Number guibg=NONE ctermbg=NONE
-    --             hi EndOfBuffer guibg=NONE ctermbg=NONE
-    --             ]]
-    --     end,
-    -- },
-    --
-    -- {
-    --     'shaunsingh/nord.nvim',
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         vim.g.nord_contrast = true
-    --         vim.g.nord_borders = false
-    --         vim.g.nord_disable_background = true
-    --         vim.g.nord_italic = false
-    --         vim.g.nord_uniform_diff_background = true
-    --         vim.g.nord_bold = false
-    --
-    --         -- Load the colorscheme
-    --         require('nord').set()
-    --     end
-    -- },
-    --
-    {
-        "Mofiqul/vscode.nvim",
-        lazy = false, -- Load the colorscheme immediately
-        priority = 1000, -- Ensure it loads before other plugins
-        config = function()
-            -- Set the VSCode colorscheme
-            vim.g.vscode_style = "dark" -- You can set this to 'light' or 'dark' based on preference
+return {
+	"catppuccin/nvim",
+	name = "catppuccin",
+	priority = 1000, -- Make sure to load this before all the other start plugins.
 
-            -- Apply the colorscheme
-            vim.cmd("colorscheme vscode")
+	dependencies = {
+		{
+			"cormacrelf/dark-notify",
+			init = function()
+				require("dark_notify").run()
+				vim.api.nvim_create_autocmd("OptionSet", {
+					pattern = "background",
+					callback = function()
+						vim.cmd("Catppuccin " .. (vim.v.option_new == "light" and "latte" or "mocha"))
+					end,
+				})
+			end,
+		},
+	},
 
-            -- Customize Mason UI elements
-            vim.cmd("highlight MasonNormal guibg=#1E2326") -- Set the Mason window background color
-            vim.cmd("highlight MasonBorder guibg=#1E2326") -- Set the border background color
-            vim.cmd("highlight MasonStatusLine guibg=#1E2326") -- Set status line background in Mason
-            vim.cmd("highlight MasonSelected guibg=#2E3539") -- Set the background for selected items
-            vim.cmd("highlight MasonItem guifg=#D0D0D0") -- Set the text color for items in Mason
-            vim.cmd("highlight MasonItemSelected guifg=#F0F0F0") -- Set the text color for selected items
-            vim.cmd("highlight MasonPrompt guifg=#D0D0D0") -- Set the prompt text color in Mason
+	init = function()
+		vim.cmd.colorscheme("catppuccin")
+		-- Override transparency for Lazy and Mason (adjust if necessary)
+		vim.api.nvim_set_hl(0, "LazyNormal", { bg = "#1F1F1F" }) -- Customize Lazy background color
+		vim.api.nvim_set_hl(0, "LazyButton", { bg = "#2A2A2A" }) -- Customize Lazy button color
+		vim.api.nvim_set_hl(0, "MasonNormal", { bg = "#2A2A2A" }) -- Customize Mason background color
+		vim.api.nvim_set_hl(0, "MasonHeader", { bg = "#1F1F1F" }) -- Customize Mason header color
+	end,
 
-            -- Customize Lazy UI elements
-            vim.cmd("highlight LazyNormal guibg=#1E2326") -- Set the Lazy window background color
-            vim.cmd("highlight LazyBorder guibg=#1E2326") -- Set the border background color
-            vim.cmd("highlight LazyStatusLine guibg=#1E2326") -- Set status line background in Lazy
-            vim.cmd("highlight LazySelected guibg=#2E3539") -- Set the background for selected items in Lazy
-            vim.cmd("highlight LazyItem guifg=#D0D0D0") -- Set the text color for items in Lazy
-            vim.cmd("highlight LazyItemSelected guifg=#F0F0F0") -- Set the text color for selected items
-            vim.cmd("highlight LazyPrompt guifg=#D0D0D0") -- Set the prompt text color in Lazy
-
-            -- Override background to make it transparent
-            vim.cmd([[
-                hi Normal guibg=NONE ctermbg=NONE
-                hi StatusLine guibg=NONE ctermbg=NONE
-                hi TabLine guibg=NONE ctermbg=NONE
-                hi Pmenu guibg=NONE ctermbg=NONE
-                hi VertSplit guibg=NONE ctermbg=NONE
-                hi LineNr guibg=NONE ctermbg=NONE
-                hi CursorLineNR guibg=NONE guifg=NONE ctermbg=NONE ctermfg=220
-                hi SignColumn guibg=NONE
-                hi Number guibg=NONE ctermbg=NONE
-            ]])
-        end,
-    }
+	---@class CatppuccinOptions
+	opts = function()
+		vim.g.catppuccin_debug = true
+		-- TODO: generate dynamics colors
+		return {
+			flavour = "mocha",
+			transparent_background = true,
+			-- TODO: add sesh custom color scheme overrides 👀
+			-- color_overrides = { all = theme_colors },
+			custom_highlights = function(colors)
+				return {
+					CurSearch = { bg = colors.yellow },
+					GitSignsChange = { fg = colors.blue },
+					CoverageCovered = { fg = colors.green },
+					CoverageUncovered = { fg = colors.red },
+					NormalFloat = { bg = "NONE" },
+					LspHoverNormal = { bg = "NONE" },
+					LspHoverBorder = { bg = "NONE" },
+					RenderMarkdownCode = { bg = "NONE" },
+				}
+			end,
+			integrations = {
+				avante = {
+					enabled = true,
+					windows_sidebar_header_rounded = true,
+				},
+				cmp = true,
+				copilot_vim = true,
+				fidget = true,
+				gitsigns = true,
+				lsp_trouble = true,
+				mason = true,
+				neotest = true,
+				noice = true,
+				notify = true,
+				octo = true,
+				telescope = true,
+				treesitter = true,
+				treesitter_context = false,
+				snacks = true,
+				illuminate = true,
+				which_key = true,
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+					},
+				},
+			},
+		}
+	end,
 }

@@ -1,4 +1,3 @@
-
 return {
 	-- Tabline
 	{
@@ -44,7 +43,7 @@ return {
 				show_tab_indicators = false,
 				indicator = {
 					icon = "", -- this should be omitted if indicator style is not 'icon'
-					style = "icon", -- Options: 'icon', 'underline', 'none'
+					style = "underline", -- Options: 'icon', 'underline', 'none'
 				},
 				icon_pinned = "󰐃",
 				minimum_padding = 1,
@@ -62,11 +61,14 @@ return {
 			},
 			highlights = {
 				separator = {
-					fg = "#A7C080",
+					fg = "#D9E0EE",
 				},
 				buffer_selected = {
 					bold = true,
 					italic = false,
+					underline = true,
+					undercurl = false,
+					sp = "#D9E0EE",
 				},
 			},
 		},
@@ -82,4 +84,50 @@ return {
 			})
 		end,
 	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			local catppuccin = require("lualine.themes.catppuccin")
+
+			-- Function to safely copy colors if the field exists
+			local function safe_copy(target, source, mode)
+				if source[mode] and source[mode].a then
+					target[mode] = target[mode] or {}
+					target[mode].a = target[mode].a or {}
+					target[mode].a.bg = source[mode].a.bg or target[mode].a.bg
+					target[mode].a.fg = source[mode].a.fg or target[mode].a.fg
+				end
+			end
+
+			-- Copy mode colors from Catppuccin theme (if they exist)
+			local modes = { "normal", "insert", "visual", "replace", "command", "terminal", "inactive" }
+			for _, mode in ipairs(modes) do
+				safe_copy(catppuccin, catppuccin, mode)
+			end
+
+			-- Make the middle section transparent
+			catppuccin.normal.c.bg = "NONE"
+
+			require("lualine").setup({
+				options = {
+					theme = catppuccin, -- Uses Catppuccin theme with mode-based colors
+					icons_enabled = true,
+					component_separators = { left = "", right = "" },
+					section_separators = { left = "", right = "" },
+					disabled_filetypes = { "NvimTree", "neo-tree" },
+					globalstatus = true,
+				},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "branch", "diff", "diagnostics" },
+					lualine_c = { "filename" },
+					lualine_x = { "encoding", "fileformat", "filetype" },
+					lualine_y = { "progress" },
+					lualine_z = { "location" },
+				},
+				extensions = { "quickfix", "toggleterm", "nvim-tree" },
+			})
+		end,
+	}
 }

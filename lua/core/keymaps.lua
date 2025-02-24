@@ -12,7 +12,6 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 local opts = { noremap = true, silent = true }
 local keymap = vim.keymap.set
 
-
 -- Save file
 -- keymap("n", "<C-s>", "<cmd> w <CR>", opts)
 -- Quit file
@@ -25,24 +24,62 @@ keymap("n", "<leader>nic", ":cd ~/codam<cr>", { desc = "Codam" })
 ---
 ---
 
-
-
 -- Obsidian ---
--- 1. 
+-- 1.
 -- navigate to vault
 keymap("n", "<leader>oia", ":cd /mnt/c/Users/lars4/Documents/GitHub/vaults<cr>", { desc = "Navigate to vaults" })
-keymap("n", "<leader>oib", ":e /mnt/c/Users/lars4/Documents/GitHub/vaults/index-vaults.md<CR>", { desc = "vaults Index" })
-keymap("n", "<leader>oi1a", ":vsplit /mnt/c/Users/lars4/Documents/GitHub/vaults/Codex/index-codex.md<CR>", { desc = "Codex Index :vsplit" })
-keymap("n", "<leader>oi1b", ":e /mnt/c/Users/lars4/Documents/GitHub/vaults/Codex/index-codex.md<CR>", { desc = "Codex Index" })
+keymap(
+	"n",
+	"<leader>oib",
+	":e /mnt/c/Users/lars4/Documents/GitHub/vaults/index-vaults.md<CR>",
+	{ desc = "vaults Index" }
+)
+keymap(
+	"n",
+	"<leader>oi1a",
+	":vsplit /mnt/c/Users/lars4/Documents/GitHub/vaults/Codex/index-codex.md<CR>",
+	{ desc = "Codex Index :vsplit" }
+)
+keymap(
+	"n",
+	"<leader>oi1b",
+	":e /mnt/c/Users/lars4/Documents/GitHub/vaults/Codex/index-codex.md<CR>",
+	{ desc = "Codex Index" }
+)
 
 -- convert note to template and remove leading white space
-keymap("n", "<leader>ot1", ":ObsidianTemplate t_note<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>", { desc = "T: Note" })
-keymap("n", "<leader>ot2", ":ObsidianTemplate t_index<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>", { desc = "T: Index" })
-keymap("n", "<leader>ot3", ":ObsidianTemplate t_daily<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>", { desc = "T: Daily" })
+keymap(
+	"n",
+	"<leader>ot1",
+	":ObsidianTemplate t_note<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>",
+	{ desc = "T: Note" }
+)
+keymap(
+	"n",
+	"<leader>ot2",
+	":ObsidianTemplate t_index<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>",
+	{ desc = "T: Index" }
+)
+keymap(
+	"n",
+	"<leader>ot3",
+	":ObsidianTemplate t_daily<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>",
+	{ desc = "T: Daily" }
+)
 
 -- Telescope open note, vertical split
-keymap("n", "<leader>oF", ":vsplit | Telescope find_files search_dirs={'/mnt/c/Users/lars4/Documents/GitHub/vaults'}<CR>", { desc = "Find Files in Vault (Vertical Split)" })
-keymap("n", "<leader>oG", ":vsplit | Telescope live_grep search_dirs={'/mnt/c/Users/lars4/Documents/GitHub/vaults'}<CR>", { desc = "Grep in Vault Notes (Vertical Split)" })
+keymap(
+	"n",
+	"<leader>oF",
+	":vsplit | Telescope find_files search_dirs={'/mnt/c/Users/lars4/Documents/GitHub/vaults'}<CR>",
+	{ desc = "Find Files in Vault (Vertical Split)" }
+)
+keymap(
+	"n",
+	"<leader>oG",
+	":vsplit | Telescope live_grep search_dirs={'/mnt/c/Users/lars4/Documents/GitHub/vaults'}<CR>",
+	{ desc = "Grep in Vault Notes (Vertical Split)" }
+)
 
 -- 2.
 -- Obsidian search open note
@@ -134,4 +171,3 @@ keymap("v", "p", '"_dP', opts)
 keymap("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 keymap("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 keymap("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-

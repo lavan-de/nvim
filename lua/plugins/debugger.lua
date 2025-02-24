@@ -92,7 +92,25 @@ return {
 			}
 			dap.configurations.c = dap.configurations.cpp
 			dap.configurations.rust = dap.configurations.cpp
-	
+
+			-- Dart setup
+			dap.adapters.dart = {
+				type = "executable",
+				command = "dart",
+				args = { "debug_adapter" },
+			}
+			dap.configurations.dart = {
+				{
+					type = "dart",
+					request = "launch",
+					name = "Launch Dart Program",
+					program = function()
+						return vim.fn.input("Path to Dart file: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+				},
+			}
+
 			-- Bash setup
 			dap.adapters.sh = {
 				type = "executable",
