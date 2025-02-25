@@ -54,18 +54,6 @@ return {
 			end
 		end,
 	},
-	-- lualine plugin setup
-	{
-		"nvim-lualine/lualine.nvim",
-		config = function()
-			require("lualine").setup({
-				options = {
-					theme = "everforest",
-					icons_enabled = true,
-				},
-			})
-		end,
-	},
 	-- rainbow-delimiters.lua
 	{
 		"HiPhish/rainbow-delimiters.nvim",

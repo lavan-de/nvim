@@ -14,21 +14,21 @@ return {
 		},
 		opts = {
 			options = {
-				mode = "buffers", -- set to "tabs" to only show tabpages instead
-				themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
-				numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-				close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-				right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-				left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
-				middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+				mode = "buffers",
+				themable = true,
+				numbers = "none",
+				close_command = "Bdelete! %d",
+				right_mouse_command = "Bdelete! %d",
+				left_mouse_command = "buffer %d",
+				middle_mouse_command = nil,
 				buffer_close_icon = "✕",
 				close_icon = "",
-				path_components = 1, -- Show only the file name without the directory
+				path_components = 1,
 				modified_icon = "●",
 				left_trunc_marker = "",
 				right_trunc_marker = "",
 				max_name_length = 30,
-				max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
+				max_prefix_length = 30,
 				tab_size = 21,
 				diagnostics = "nvim_lsp",
 				diagnostics_update_in_insert = false,
@@ -36,14 +36,14 @@ return {
 				show_buffer_icons = true,
 				show_buffer_close_icons = true,
 				show_close_icon = true,
-				persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-				separator_style = { "║", "║" }, -- | "thick" | "thin" | { 'any', 'any' },
+				persist_buffer_sort = true,
+				separator_style = { "║", "║" },
 				enforce_regular_tabs = true,
 				always_show_bufferline = true,
 				show_tab_indicators = false,
 				indicator = {
-					icon = "", -- this should be omitted if indicator style is not 'icon'
-					style = "underline", -- Options: 'icon', 'underline', 'none'
+					icon = "",
+					style = "underline",
 				},
 				icon_pinned = "󰐃",
 				minimum_padding = 1,
@@ -61,20 +61,23 @@ return {
 			},
 			highlights = {
 				separator = {
-					fg = "#D9E0EE",
+					fg = "#7AA2F7", -- Set to none for transparency
 				},
 				buffer_selected = {
 					bold = true,
 					italic = false,
 					underline = true,
 					undercurl = false,
-					sp = "#D9E0EE",
+					fg = "#7AA2F7", -- Adjust selected buffer color if needed
+					bg = "NONE", -- Make selected buffer background transparent
+				},
+				fill = {
+					bg = "NONE", -- Make the fill background transparent
 				},
 			},
 		},
 		config = function(_, opts)
 			require("bufferline").setup(opts)
-			-- Fix bufferline when restoring a session
 			vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
 				callback = function()
 					vim.schedule(function()
@@ -88,30 +91,33 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			local catppuccin = require("lualine.themes.catppuccin")
+			-- Import Tokyonight colors
+			local tokyonight_colors = require("tokyonight.colors").setup()
 
-			-- Function to safely copy colors if the field exists
-			local function safe_copy(target, source, mode)
-				if source[mode] and source[mode].a then
-					target[mode] = target[mode] or {}
-					target[mode].a = target[mode].a or {}
-					target[mode].a.bg = source[mode].a.bg or target[mode].a.bg
-					target[mode].a.fg = source[mode].a.fg or target[mode].a.fg
-				end
-			end
+			-- Use the horizon theme from lualine
+			local horizon_theme = require("lualine.themes.horizon")
 
-			-- Copy mode colors from Catppuccin theme (if they exist)
-			local modes = { "normal", "insert", "visual", "replace", "command", "terminal", "inactive" }
-			for _, mode in ipairs(modes) do
-				safe_copy(catppuccin, catppuccin, mode)
-			end
+			-- Customize the Normal mode to match the Tokyonight normal mode color
+			horizon_theme.normal.a = {
+				bg = tokyonight_colors.blue,
+				fg = tokyonight_colors.bg,
+				gui = "bold",
+			}
 
-			-- Make the middle section transparent
-			catppuccin.normal.c.bg = "NONE"
+			horizon_theme.normal.b = {
+				bg = tokyonight_colors.bg,
+				fg = tokyonight_colors.fg,
+			}
 
+			horizon_theme.normal.c = {
+				bg = "NONE", -- Transparent middle section
+				fg = tokyonight_colors.fg,
+			}
+
+			-- Set up the lualine with the modified horizon theme
 			require("lualine").setup({
 				options = {
-					theme = catppuccin, -- Uses Catppuccin theme with mode-based colors
+					theme = horizon_theme, -- Use modified horizon theme
 					icons_enabled = true,
 					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
@@ -129,5 +135,5 @@ return {
 				extensions = { "quickfix", "toggleterm", "nvim-tree" },
 			})
 		end,
-	}
+	},
 }
